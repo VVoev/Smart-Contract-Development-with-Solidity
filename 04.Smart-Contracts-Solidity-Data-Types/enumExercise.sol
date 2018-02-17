@@ -19,14 +19,14 @@ contract Action {
     modifier checkState(){
         require(currentState != State.Locked);
         
-        if(currentState == State.Restricted){
+        if (currentState == State.Restricted) {
             require(msg.sender == owner);
         }
         _;
     }
 
     
-    struct Info{
+    struct Info {
         uint256 timeStamp;
         address caller;
         uint256 counter;
@@ -35,16 +35,16 @@ contract Action {
     Info public accountIfo;
     State currentState;
     
-    function getCurrentState() public view returns(State){
+    function getCurrentState() public view returns(State) {
         return currentState;
     }
     
-    function changeState(State newState) public onlyOwner(){
+    function changeState(State newState) public onlyOwner() {
         currentState = newState;
         updateInfo();
     }
     
-    function updateInfo() private{
+    function updateInfo() private {
         accountIfo = Info(now, msg.sender,++accountIfo.counter);
     }
     
